@@ -9,22 +9,17 @@ type Props = {
 };
 
 export class Clock extends React.Component<Props, State> {
-  state: Readonly<State> = {
+  state: State = {
     today: new Date(),
   };
 
-  todayId = 0;
+  timerClockTime = 0;
 
-  consoleId = 0;
-
-  componentDidMount(): void {
-    this.todayId = window.setInterval(() => {
+  componentDidMount() {
+    this.timerClockTime = window.setInterval(() => {
       this.setState({ today: new Date() });
-    }, 1000);
-
-    this.consoleId = window.setInterval(() => {
       // eslint-disable-next-line no-console
-      console.log(this.state.today.toUTCString().slice(-12, -4));
+      console.log(new Date().toUTCString().slice(-12, -4));
     }, 1000);
   }
 
@@ -40,8 +35,7 @@ export class Clock extends React.Component<Props, State> {
   }
 
   componentWillUnmount(): void {
-    window.clearInterval(this.todayId);
-    window.clearInterval(this.consoleId);
+    window.clearInterval(this.timerClockTime);
   }
 
   render() {
